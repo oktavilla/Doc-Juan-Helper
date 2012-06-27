@@ -1,4 +1,2 @@
 require "doc_juans_helper/version"
-
-module DocJuansHelper
-end
+require "doc_juans_helper/config"
