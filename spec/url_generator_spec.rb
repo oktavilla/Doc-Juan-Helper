@@ -12,7 +12,8 @@ describe DocJuan::UrlGenerator do
   subject do
     DocJuan::UrlGenerator.new('http://example.com', 'file.pdf', {
       title: 'The Site',
-      size: 'A4'
+      size: 'A4',
+      print_stylesheet: true
     })
   end
 
@@ -22,12 +23,26 @@ describe DocJuan::UrlGenerator do
     expected = 'http://doc-juan.example.com/render?'
     expected << "url=#{CGI.escape subject.url}"
     expected << "&filename=#{CGI.escape subject.filename}"
+    expected << "&options[print_stylesheet]=true"
     expected << "&options[size]=A4"
     expected << "&options[title]=#{CGI.escape 'The Site'}"
     expected << "&key=#{subject.public_key}"
 
     url.must_equal expected
   end
+
+  it 'generates the url with no options' do
+    subject.stubs(:options).returns Hash.new
+    url = subject.generate
+
+    expected = 'http://doc-juan.example.com/render?'
+    expected << "url=#{CGI.escape subject.url}"
+    expected << "&filename=#{CGI.escape subject.filename}"
+    expected << "&key=#{subject.public_key}"
+
+    url.must_equal expected
+  end
+
 
   it 'has the host' do
     DocJuan.config.host = 'example.com'
@@ -56,11 +71,11 @@ describe DocJuan::UrlGenerator do
   end
 
   it 'compiles into a seed string for the public key computation' do
-    subject.seed_string.must_equal 'filename:file.pdf-options_size:A4-options_title:The Site-url:http://example.com'
+    subject.seed_string.must_equal 'filename:file.pdf-options_print_stylesheet:true-options_size:A4-options_title:The Site-url:http://example.com'
   end
 
   it 'calculates the public key' do
-    subject.public_key.must_equal 'df9515da45dd0cd445a678928bc3e575cc106793'
+    subject.public_key.must_equal 'b55142f9fdb148e8844e37e064e8eb2af6aabac6'
   end
 
   it 'calculates the public key with no options given' do

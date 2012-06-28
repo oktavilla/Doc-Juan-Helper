@@ -24,7 +24,7 @@ module DocJuan
       params << "url=#{CGI.escape(url)}"
       params << "filename=#{CGI.escape(filename)}"
       options.each do |k,v|
-        params << "options[#{CGI.escape(k.to_s)}]=#{CGI.escape v}"
+        params << "options[#{CGI.escape(k.to_s)}]=#{CGI.escape v.to_s}"
       end
       params << "key=#{public_key}"
 
