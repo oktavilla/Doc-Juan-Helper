@@ -13,6 +13,9 @@ module DocJuan
     def initialize url, filename, options = {}
       @url = url
       @filename = filename.to_s
+
+      options = {} unless options
+      options = options.merge authentication_credentials if has_authentication_credentials?
       @options = Hash[(options || {}).sort]
 
       raise NoSecretGivenError if secret_key == ''
@@ -57,6 +60,17 @@ module DocJuan
 
     def secret_key
       DocJuan.config.secret.to_s.strip
+    end
+
+    def authentication_credentials
+      {
+        username: DocJuan.config.username,
+        password: DocJuan.config.password
+      }
+    end
+
+    def has_authentication_credentials?
+      authentication_credentials.values.compact.any?
     end
   end
 end

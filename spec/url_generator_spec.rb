@@ -70,6 +70,36 @@ describe DocJuan::UrlGenerator do
     }.must_raise DocJuan::NoSecretGivenError
   end
 
+  describe '#authentication' do
+    before :each do
+      DocJuan.config.username = 'xkcd'
+      DocJuan.config.password = 'correct horse battery staple'
+    end
+
+    after :each do
+      DocJuan.config.username = nil
+      DocJuan.config.password = nil
+    end
+
+    it 'knows if authentication credentials is added' do
+      subject.has_authentication_credentials?.must_equal true
+    end
+
+    it 'knows if authentication credentials is missing' do
+      DocJuan.config.username = nil
+      DocJuan.config.password = nil
+
+      subject.has_authentication_credentials?.must_equal false
+    end
+
+
+    it 'appends username and password to options if set as config variables' do
+      subject.options[:username].must_equal 'xkcd'
+      subject.options[:password].must_equal 'correct horse battery staple'
+    end
+
+  end
+
   it 'compiles into a seed string for the public key computation' do
     subject.seed_string.must_equal 'filename:file.pdf-options_print_stylesheet:true-options_size:A4-options_title:The Site-url:http://example.com'
   end

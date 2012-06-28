@@ -9,7 +9,8 @@ module DocJuan
   end
 
   class Configuration
-    attr_accessor :host, :secret
+    attr_accessor :host, :secret,
+                  :username, :password
   end
 
 end
