@@ -1,6 +1,8 @@
 require 'openssl'
 require 'cgi'
 
+require_relative 'config'
+
 module DocJuan
   class NoHostGivenError < StandardError; end
   class NoSecretGivenError < StandardError; end

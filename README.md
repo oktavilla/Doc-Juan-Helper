@@ -20,7 +20,7 @@ If you are using Rails an initializer would be the appropriate place for this.
 
 ### Generating urls
 
-The `DocJuan.url_for` method generates a url to your Doc-Juan instance. It takes an url and a filename as the required arguments. You can supply an (optional) hash of options as the third argument.
+The `DocJuan.url` method generates a url to your Doc-Juan instance. It takes an url and a filename as the required arguments. You can supply an (optional) hash of options as the third argument.
 
 Valid options are:
 
@@ -34,9 +34,9 @@ Valid options are:
 
 #### Example
 
-    url = DocJuan.url_for 'http://example.com', 'example.pdf'
+    url = DocJuan.url 'http://example.com', 'example.pdf'
     
-    url = DocJuan.url_for 'http://example.com', 'le-pdf.pdf', title: 'My PDF-version', size: 'A5'
+    url = DocJuan.url 'http://example.com', 'le-pdf.pdf', title: 'My PDF-version', size: 'A5'
 
 
 ## Installation
