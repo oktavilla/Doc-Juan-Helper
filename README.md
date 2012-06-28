@@ -17,6 +17,11 @@ You need to provide your secret key and the host of the Doc-Juan instance.
 
 If you are using Rails an initializer would be the appropriate place for this.
 
+### Authentication
+
+If your site is behind HTTP Basic Authentication `DocJuan.config.username` and `DocJuan.config.password` is your friends.
+
+**BEWARE!** Setting these will append your credentials to every DocJuan url generated and, depending on how you use them, can be _fully visible to your users_. The authentication credentials is foremost available for testing in your staging environment.
 
 ### Generating urls
 
