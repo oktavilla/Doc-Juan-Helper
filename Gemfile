@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-# Specify your gem's dependencies in doc_juans_helper.gemspec
+# Specify your gem's dependencies in doc_juan.gemspec
 gemspec
 
 group :test do

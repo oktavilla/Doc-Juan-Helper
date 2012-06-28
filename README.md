@@ -2,7 +2,7 @@
 
 A small helper class to generate urls to a Doc-Juan instance.
 
-Give a url, a filename and options the DocJuansHelper to generate a url to a DocJuan server including the calculated hmac key.
+Give a url, a filename and options the DocJuan to generate a url to a DocJuan server including the calculated hmac key.
 
 ## Usage
 
@@ -10,7 +10,7 @@ Give a url, a filename and options the DocJuansHelper to generate a url to a Doc
 
 You need to provide your secret key and the host of the Doc-Juan instance.
 
-    DocJuansHelper.configure do |config|
+    DocJuan.configure do |config|
       config.host = 'doc-juan.it'
       config.secret = 'my-special-secret'
     end
@@ -20,7 +20,7 @@ If you are using Rails an initializer would be the appropriate place for this.
 
 ### Generating urls
 
-The `DocJuansHelper.url_for` method generates a url to your Doc-Juan instance. It takes an url and a filename as the required arguments. You can supply an (optional) hash of options as the third argument.
+The `DocJuan.url_for` method generates a url to your Doc-Juan instance. It takes an url and a filename as the required arguments. You can supply an (optional) hash of options as the third argument.
 
 Valid options are:
 
@@ -34,16 +34,16 @@ Valid options are:
 
 #### Example
 
-    url = DocJuansHelper.url_for 'http://example.com', 'example.pdf'
+    url = DocJuan.url_for 'http://example.com', 'example.pdf'
     
-    url = DocJuansHelper.url_for 'http://example.com', 'le-pdf.pdf', title: 'My PDF-version', size: 'A5'
+    url = DocJuan.url_for 'http://example.com', 'le-pdf.pdf', title: 'My PDF-version', size: 'A5'
 
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
-    gem 'doc_juans_helper'
+    gem 'doc_juan'
 
 And then execute:
 
@@ -51,7 +51,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install doc_juans_helper
+    $ gem install doc_juan
 
 
 ## Contributing

@@ -1,16 +1,16 @@
 require_relative 'spec_helper'
 
-require_relative '../lib/doc_juans_helper/config.rb'
-require_relative '../lib/doc_juans_helper/url_generator.rb'
+require_relative '../lib/doc_juan/config.rb'
+require_relative '../lib/doc_juan/url_generator.rb'
 
-describe DocJuansHelper::UrlGenerator do
+describe DocJuan::UrlGenerator do
   before :each do
-    DocJuansHelper.config.host = 'doc-juan.example.com'
-    DocJuansHelper.config.secret = 'zecret'
+    DocJuan.config.host = 'doc-juan.example.com'
+    DocJuan.config.secret = 'zecret'
   end
 
   subject do
-    DocJuansHelper::UrlGenerator.new('http://example.com', 'file.pdf', {
+    DocJuan::UrlGenerator.new('http://example.com', 'file.pdf', {
       title: 'The Site',
       size: 'A4'
     })
@@ -30,17 +30,17 @@ describe DocJuansHelper::UrlGenerator do
   end
 
   it 'has the host' do
-    DocJuansHelper.config.host = 'example.com'
+    DocJuan.config.host = 'example.com'
 
     subject.host.must_equal 'http://example.com'
   end
 
   it 'fails with NoHostGivenError unless there is a host set' do
-    DocJuansHelper.config.host = nil
+    DocJuan.config.host = nil
 
     proc {
       subject
-    }.must_raise DocJuansHelper::NoHostGivenError
+    }.must_raise DocJuan::NoHostGivenError
   end
 
   it 'has the secret key' do
@@ -48,11 +48,11 @@ describe DocJuansHelper::UrlGenerator do
   end
 
   it 'fails with NoSecretGivenError unless there is a secret set' do
-    DocJuansHelper.config.secret = nil
+    DocJuan.config.secret = nil
 
     proc {
       subject
-    }.must_raise DocJuansHelper::NoSecretGivenError
+    }.must_raise DocJuan::NoSecretGivenError
   end
 
   it 'compiles into a seed string for the public key computation' do
@@ -64,7 +64,7 @@ describe DocJuansHelper::UrlGenerator do
   end
 
   it 'calculates the public key with no options given' do
-    url_generator = DocJuansHelper::UrlGenerator.new 'http://example.com', 'file.pdf'
+    url_generator = DocJuan::UrlGenerator.new 'http://example.com', 'file.pdf'
     key = url_generator.public_key
 
     key.must_equal '539ebb1f6cd3fec40591acdc756e9b047e7093b3'

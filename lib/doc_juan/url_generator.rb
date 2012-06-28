@@ -1,7 +1,7 @@
 require 'openssl'
 require 'cgi'
 
-module DocJuansHelper
+module DocJuan
   class NoHostGivenError < StandardError; end
   class NoSecretGivenError < StandardError; end
 
@@ -46,7 +46,7 @@ module DocJuansHelper
     end
 
     def host
-      @host ||= DocJuansHelper.config.host.to_s.strip.tap do |host|
+      @host ||= DocJuan.config.host.to_s.strip.tap do |host|
         if host != '' && ! host.start_with?('http')
           host.replace "http://#{host}"
         end
@@ -54,7 +54,7 @@ module DocJuansHelper
     end
 
     def secret_key
-      DocJuansHelper.config.secret.to_s.strip
+      DocJuan.config.secret.to_s.strip
     end
   end
 end

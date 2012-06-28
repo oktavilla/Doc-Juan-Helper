@@ -1,4 +1,4 @@
-module DocJuansHelper
+module DocJuan
 
   def self.configure
     yield config
