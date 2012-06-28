@@ -6,7 +6,7 @@ Gem::Specification.new do |gem|
   gem.email         = ["joel.junstrom@oktavilla.se"]
   gem.description   = %q{A small helper class to generate urls to a Doc-Juan instance}
   gem.summary       = %q{Given a url and options the DocJuan generates a url to a DocJuan server including the calculated hmac key}
-  gem.homepage      = ""
+  gem.homepage      = "https://github.com/Oktavilla/Doc-Juan-gem"
 
   gem.files         = `git ls-files`.split($\)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
