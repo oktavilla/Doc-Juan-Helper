@@ -19,7 +19,7 @@ describe DocJuan::UrlGenerator do
   it 'generates the url' do
     url = subject.generate
 
-    expected = 'http://doc-juan.example.com?'
+    expected = 'http://doc-juan.example.com/render?'
     expected << "url=#{CGI.escape subject.url}"
     expected << "&filename=#{CGI.escape subject.filename}"
     expected << "&options[size]=A4"

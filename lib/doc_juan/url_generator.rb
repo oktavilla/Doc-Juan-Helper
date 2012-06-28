@@ -28,7 +28,7 @@ module DocJuan
       end
       params << "key=#{public_key}"
 
-      "#{host}?#{params.join('&')}"
+      "#{host}/render?#{params.join('&')}"
     end
 
     def public_key
