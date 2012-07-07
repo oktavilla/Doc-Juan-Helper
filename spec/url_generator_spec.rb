@@ -35,18 +35,6 @@ describe DocJuan::UrlGenerator do
     end
   end
 
-  it 'generates the url with no options' do
-    subject.stubs(:options).returns Hash.new
-    url = subject.generate
-
-    expected = 'http://doc-juan.example.com/render?'
-    expected << "url=#{CGI.escape subject.url}"
-    expected << "&filename=#{CGI.escape subject.filename}"
-    expected << "&key=#{subject.public_key}"
-
-    url.must_equal expected
-  end
-
   it 'has the host' do
     DocJuan.config.host = 'example.com'
 
