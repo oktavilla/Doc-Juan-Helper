@@ -1,3 +1,5 @@
+require 'addressable/uri'
+
 require_relative 'spec_helper'
 
 require_relative '../lib/doc_juan/config.rb'
@@ -18,17 +20,19 @@ describe DocJuan::UrlGenerator do
   end
 
   it 'generates the url' do
-    url = subject.generate
+    uri = Addressable::URI.parse subject.generate
+    query = CGI.parse uri.query
 
-    expected = 'http://doc-juan.example.com/render?'
-    expected << "url=#{CGI.escape subject.url}"
-    expected << "&filename=#{CGI.escape subject.filename}"
-    expected << "&options[print_stylesheet]=true"
-    expected << "&options[size]=A4"
-    expected << "&options[title]=#{CGI.escape 'The Site'}"
-    expected << "&key=#{subject.public_key}"
+    uri.host.must_equal 'doc-juan.example.com'
+    uri.path.must_equal '/render'
 
-    url.must_equal expected
+    query['url'].first.must_equal subject.url
+    query['filename'].first.must_equal subject.filename
+    query['key'].first.must_equal subject.public_key
+
+    subject.options.each do |k, v|
+      query["options[#{k}]"].first.must_equal v.to_s
+    end
   end
 
   it 'generates the url with no options' do

@@ -16,7 +16,7 @@ module DocJuan
 
       options = {} unless options
       options = options.merge authentication_credentials if has_authentication_credentials?
-      @options = Hash[(options || {}).sort]
+      @options = options
 
       raise NoHostGivenError if host == ''
     end
