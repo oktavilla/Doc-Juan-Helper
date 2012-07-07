@@ -1,11 +1,11 @@
 require 'openssl'
 require 'cgi'
 
+require_relative 'token'
 require_relative 'config'
 
 module DocJuan
   class NoHostGivenError < StandardError; end
-  class NoSecretGivenError < StandardError; end
 
   class UrlGenerator
     attr_reader :url, :filename, :options
@@ -18,7 +18,6 @@ module DocJuan
       options = options.merge authentication_credentials if has_authentication_credentials?
       @options = Hash[(options || {}).sort]
 
-      raise NoSecretGivenError if secret_key == ''
       raise NoHostGivenError if host == ''
     end
 
@@ -35,19 +34,7 @@ module DocJuan
     end
 
     def public_key
-      sha1 = OpenSSL::Digest::Digest.new 'sha1'
-      OpenSSL::HMAC.hexdigest sha1, secret_key, seed_string
-    end
-
-    def seed_string
-      seed = []
-      seed << "filename:#{filename}"
-      options.each do |k,v|
-        seed << "options_#{k}:#{v}"
-      end
-      seed << "url:#{url}"
-
-      seed.join '-'
+      @public_key ||= DocJuan::Token.new(self).key
     end
 
     def host
@@ -56,10 +43,6 @@ module DocJuan
           host.replace "http://#{host}"
         end
       end
-    end
-
-    def secret_key
-      DocJuan.config.secret.to_s.strip
     end
 
     def authentication_credentials

@@ -43,7 +43,6 @@ describe DocJuan::UrlGenerator do
     url.must_equal expected
   end
 
-
   it 'has the host' do
     DocJuan.config.host = 'example.com'
 
@@ -58,16 +57,9 @@ describe DocJuan::UrlGenerator do
     }.must_raise DocJuan::NoHostGivenError
   end
 
-  it 'has the secret key' do
-    subject.secret_key.must_equal 'zecret'
-  end
-
-  it 'fails with NoSecretGivenError unless there is a secret set' do
-    DocJuan.config.secret = nil
-
-    proc {
-      subject
-    }.must_raise DocJuan::NoSecretGivenError
+  it 'uses the token class to calculate the key' do
+    DocJuan::Token.expects(:new).with(subject).returns stub(key: 'verypublickey')
+    subject.public_key.must_equal 'verypublickey'
   end
 
   describe '#authentication' do
@@ -92,27 +84,11 @@ describe DocJuan::UrlGenerator do
       subject.has_authentication_credentials?.must_equal false
     end
 
-
     it 'appends username and password to options if set as config variables' do
       subject.options[:username].must_equal 'xkcd'
       subject.options[:password].must_equal 'correct horse battery staple'
     end
 
-  end
-
-  it 'compiles into a seed string for the public key computation' do
-    subject.seed_string.must_equal 'filename:file.pdf-options_print_stylesheet:true-options_size:A4-options_title:The Site-url:http://example.com'
-  end
-
-  it 'calculates the public key' do
-    subject.public_key.must_equal 'b55142f9fdb148e8844e37e064e8eb2af6aabac6'
-  end
-
-  it 'calculates the public key with no options given' do
-    url_generator = DocJuan::UrlGenerator.new 'http://example.com', 'file.pdf'
-    key = url_generator.public_key
-
-    key.must_equal '539ebb1f6cd3fec40591acdc756e9b047e7093b3'
   end
 
 end
