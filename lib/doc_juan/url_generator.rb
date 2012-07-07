@@ -1,4 +1,3 @@
-require 'openssl'
 require 'cgi'
 
 require_relative 'token'
