@@ -5,6 +5,8 @@ require_relative 'spec_helper'
 require_relative '../lib/doc_juan/config.rb'
 require_relative '../lib/doc_juan/url_generator.rb'
 
+require 'mocha'
+
 describe DocJuan::UrlGenerator do
   before :each do
     DocJuan.config.host = 'doc-juan.example.com'
