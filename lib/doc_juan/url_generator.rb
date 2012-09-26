@@ -7,11 +7,12 @@ module DocJuan
   class NoHostGivenError < StandardError; end
 
   class UrlGenerator
-    attr_reader :url, :filename, :options
+    attr_reader :url, :filename, :format, :options
 
-    def initialize url, filename, options = {}
+    def initialize url, filename, format = 'pdf', options = {}
       @url = url
       @filename = filename.to_s
+      @format = format
 
       options = {} unless options
       options = options.merge authentication_credentials if has_authentication_credentials?
@@ -24,6 +25,7 @@ module DocJuan
       params = []
       params << "url=#{CGI.escape(url)}"
       params << "filename=#{CGI.escape(filename)}"
+      params << "format=#{CGI.escape(format)}"
       options.each do |k,v|
         params << "options[#{CGI.escape(k.to_s)}]=#{CGI.escape v.to_s}"
       end
