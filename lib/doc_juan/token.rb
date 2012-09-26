@@ -23,6 +23,7 @@ module DocJuan
     def seed
       seed = []
       seed << "filename:#{@url_generator.filename}"
+      seed << "format:#{@url_generator.format}"
       Hash[(@url_generator.options).sort].each do |k,v|
         seed << "options_#{k}:#{v}"
       end

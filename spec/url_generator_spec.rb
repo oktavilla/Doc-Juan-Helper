@@ -14,7 +14,7 @@ describe DocJuan::UrlGenerator do
   end
 
   subject do
-    DocJuan::UrlGenerator.new('http://example.com', 'file.pdf', {
+    DocJuan::UrlGenerator.new('http://example.com', 'file', 'pdf', {
       title: 'The Site',
       size: 'A4',
       print_stylesheet: true
@@ -31,6 +31,7 @@ describe DocJuan::UrlGenerator do
     query['url'].first.must_equal subject.url
     query['filename'].first.must_equal subject.filename
     query['key'].first.must_equal subject.public_key
+    query['format'].first.must_equal subject.format
 
     subject.options.each do |k, v|
       query["options[#{k}]"].first.must_equal v.to_s
