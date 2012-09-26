@@ -8,7 +8,7 @@ describe DocJuan::Token do
   end
 
   let(:url_generator) do
-    stub(url: 'http://example.com', filename: 'file.pdf', options: {
+    stub(url: 'http://example.com', filename: 'file', format: 'pdf', options: {
       title: 'The Site',
       size: 'A4',
       print_stylesheet: true
@@ -18,7 +18,7 @@ describe DocJuan::Token do
   subject { DocJuan::Token.new(url_generator) }
 
   it 'compiles into a seed string for the public key computation' do
-    subject.seed.must_equal 'filename:file.pdf-options_print_stylesheet:true-options_size:A4-options_title:The Site-url:http://example.com'
+    subject.seed.must_equal 'filename:file-format:pdf-options_print_stylesheet:true-options_size:A4-options_title:The Site-url:http://example.com'
   end
 
   it 'calculates the public key' do
@@ -26,7 +26,7 @@ describe DocJuan::Token do
   end
 
   it 'calculates the public key with no options given' do
-    url_generator = stub url: 'http://example.com', filename: 'file.pdf', options: {}
+    url_generator = stub url: 'http://example.com', filename: 'file', format: 'pdf', options: {}
     token = DocJuan::Token.new(url_generator)
 
     token.key.must_equal '539ebb1f6cd3fec40591acdc756e9b047e7093b3'
