@@ -13,7 +13,7 @@ describe 'DocJuan#url' do
     generator = stub
     generator.expects(:generate).returns 'generated-url'
     DocJuan::UrlGenerator.expects(:new).
-      with('http://example.com', 'the_file', nil, size: 'A4').
+      with('http://example.com', 'the_file', 'pdf', size: 'A4').
       returns(generator)
 
     url = DocJuan.url 'http://example.com', 'the_file', size: 'A4'

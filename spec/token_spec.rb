@@ -22,14 +22,14 @@ describe DocJuan::Token do
   end
 
   it 'calculates the public key' do
-    subject.key.must_equal 'b55142f9fdb148e8844e37e064e8eb2af6aabac6'
+    subject.key.must_equal '85906324d44df6d6309ad2a268841b8e127baf0c'
   end
 
   it 'calculates the public key with no options given' do
     url_generator = stub url: 'http://example.com', filename: 'file', format: 'pdf', options: {}
     token = DocJuan::Token.new(url_generator)
 
-    token.key.must_equal '539ebb1f6cd3fec40591acdc756e9b047e7093b3'
+    token.key.must_equal '2fb616f00c7986e1d4ee31a2046f422640f35e2a'
   end
 
   it 'has the secret key' do
