@@ -12,7 +12,7 @@ module DocJuan
     end
 
     def key
-      sha1 = OpenSSL::Digest::Digest.new 'sha1'
+      sha1 = OpenSSL::Digest.new 'sha1'
       OpenSSL::HMAC.hexdigest sha1, secret, seed
     end
 
